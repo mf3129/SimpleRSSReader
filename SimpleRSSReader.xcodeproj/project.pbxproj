@@ -13,6 +13,7 @@
 		F41207211DC04F2900CF8039 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F412071F1DC04F2900CF8039 /* LaunchScreen.storyboard */; };
 		F412072B1DC050F700CF8039 /* NewsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F412072A1DC050F700CF8039 /* NewsTableViewCell.swift */; };
 		F412072D1DC0510C00CF8039 /* NewsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F412072C1DC0510C00CF8039 /* NewsTableViewController.swift */; };
+		F42F22D9228B9CBE00622CC7 /* FeedParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42F22D8228B9CBE00622CC7 /* FeedParser.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		F41207221DC04F2900CF8039 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F412072A1DC050F700CF8039 /* NewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewCell.swift; sourceTree = "<group>"; };
 		F412072C1DC0510C00CF8039 /* NewsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsTableViewController.swift; sourceTree = "<group>"; };
+		F42F22D8228B9CBE00622CC7 /* FeedParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedParser.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 				F41207221DC04F2900CF8039 /* Info.plist */,
 				F412072A1DC050F700CF8039 /* NewsTableViewCell.swift */,
 				F412072C1DC0510C00CF8039 /* NewsTableViewController.swift */,
+				F42F22D8228B9CBE00622CC7 /* FeedParser.swift */,
 			);
 			path = SimpleRSSReader;
 			sourceTree = "<group>";
@@ -142,6 +145,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F42F22D9228B9CBE00622CC7 /* FeedParser.swift in Sources */,
 				F41207171DC04F2900CF8039 /* AppDelegate.swift in Sources */,
 				F412072B1DC050F700CF8039 /* NewsTableViewCell.swift in Sources */,
 				F412072D1DC0510C00CF8039 /* NewsTableViewController.swift in Sources */,
