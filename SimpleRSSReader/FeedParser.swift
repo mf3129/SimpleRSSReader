@@ -31,8 +31,45 @@ class FeedParser: NSObject, XMLParserDelegate {
             currentTitle = currentTitle.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
         }
     }
+    private var currentDescription: String = "" {
+        didSet {
+            currentDescription = currentDescription.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        }
+    }
+    private var currentPubDate: String = "" {
+        didSet {
+            currentPubDate = currentPubDate.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+        }
+    }
+    
+    private var parsercompletionHandler:(([(title: String, description: String, pubDate: String)]) -> Void)?
     
     
+    //Getting the URL and making URL request/ Set delegate
+    func parseFeed(feedURL: String, completionHandler: (([(title: String, description: String, pubDate: String)]) -> Void)?) -> Void {
+        
+        self.parsercompletionHandler = completionHandler
+        
+        let request = URLRequest(url: URL(string: feedURL)!)
+        let urlSession = URLSession.shared
+        let task = urlSession.dataTask(with: request) { (data, response, error) -> Void in
+            
+            guard let data = data else {
+                if let error = error {
+                    print(error)
+                }
+                return
+            }
+            
+            //PARSE XML data
+            let parser = XMLParser(data: data)
+            parser.delegate = self
+            parser.parse()
+            
+        }
+        
+        task.resume()
+    }
     
     
 }
