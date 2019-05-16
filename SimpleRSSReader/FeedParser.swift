@@ -71,5 +71,36 @@ class FeedParser: NSObject, XMLParserDelegate {
         task.resume()
     }
     
+    func parserDidStartDocument(_ parser: XMLParser) {
+        rssItems = []
+    }
+    
+    //Once item found, we clear the labels to prepare for storage
+    func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
+        
+        currentElement = elementName
+        
+        if currentElement == rssTag.item.rawValue {
+            currentTitle = ""
+            currentDescription = ""
+            currentPubDate = ""
+        }
+    }
+    
+    
+    //Appending data from character found to variables
+    func parser(_ parser: XMLParser, foundCharacters string: String) {
+        
+        switch currentElement {
+        case rssTag.title.rawValue: currentTitle += string
+        case rssTag.description.rawValue: currentDescription += string
+        case rssTag.pubDate.rawValue: currentPubDate += string
+        default: break
+        }
+    }
+    
+    
+    
+    
     
 }
