@@ -9,13 +9,27 @@
 import UIKit
 
 class NewsTableViewController: UITableViewController {
-
+    
+    private var rssItems: [ArticleItem]?
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.estimatedRowHeight = 155.0
         tableView.rowHeight = UITableView.automaticDimension
-
+        
+        let feedParser = FeedParser()
+        feedParser.parseFeed(feedURL: "https://developer.apple.com/news/rss/news.rss", completionHandler: {
+            
+            (rssItems: [ArticleItem]) -> Void in
+            
+            self.rssItems = rssItems
+            OperationQueue.main.addOperation({ () -> Void in
+                self.tableView.reloadSections(IndexSet(integer: 0), with: .none)
+            })
+        })
     }
 
     override func didReceiveMemoryWarning() {

@@ -99,7 +99,26 @@ class FeedParser: NSObject, XMLParserDelegate {
         }
     }
     
+    //Once closing item tag is reached
+    func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
+        
+        if elementName == rssTag.item.rawValue {
+            let rssItem = (title: currentTitle, description: currentDescription, pubDate: currentPubDate)
+            rssItems += [rssItem]
+        }
+        
+    }
     
+    //Parsing complete, we call the parsercompletionHandler function
+    func parserDidEndDocument(_ parser: XMLParser) {
+        parsercompletionHandler?(rssItems)
+    }
+    
+    
+    //Called if a fatal error occurs during the parsing
+    func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
+        print(parseError.localizedDescription)
+    }
     
     
     
