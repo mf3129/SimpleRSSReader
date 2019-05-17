@@ -2,8 +2,7 @@
 //  NewsTableViewCell.swift
 //  SimpleRSSReader
 //
-//  Created by Simon Ng on 26/10/2016.
-//  Copyright © 2016 AppCoda. All rights reserved.
+//  Makan Fofana
 //
 
 import UIKit
@@ -17,7 +16,7 @@ class NewsTableViewCell: UITableViewCell {
     }
     @IBOutlet weak var descriptionLabel:UILabel! {
         didSet {
-            descriptionLabel.numberOfLines = 0
+            descriptionLabel.numberOfLines = 4 //Update to the number of lines
         }
     }
     @IBOutlet weak var dateLabel:UILabel! {

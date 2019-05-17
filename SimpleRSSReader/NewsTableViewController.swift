@@ -2,8 +2,7 @@
 //  NewsTableViewController.swift
 //  SimpleRSSReader
 //
-//  Created by Simon Ng on 26/10/2016.
-//  Copyright © 2016 AppCoda. All rights reserved.
+//  Makan Fofana
 //
 
 import UIKit
@@ -22,7 +21,6 @@ class NewsTableViewController: UITableViewController {
         
         let feedParser = FeedParser()
         feedParser.parseFeed(feedURL: "https://developer.apple.com/news/rss/news.rss", completionHandler: {
-            
             (rssItems: [ArticleItem]) -> Void in
             
             self.rssItems = rssItems
@@ -41,12 +39,42 @@ class NewsTableViewController: UITableViewController {
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // Return the number of sections
+        
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // Return the number of rows
-        return 0
+        guard let rssItems = rssItems else {
+            return 0
+        }
+        
+        return rssItems.count
     }
 
+    //Animating cell for to expand from 4 to 0 lines when tapped and vice versa
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        let cell = tableView.cellForRow(at: indexPath) as! NewsTableViewCell
+        
+        tableView.beginUpdates()
+        cell.descriptionLabel.numberOfLines = (cell.descriptionLabel.numberOfLines == 0) ? 4 : 0
+        
+        tableView.endUpdates()
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! NewsTableViewCell
+        
+        //Configuring the cell
+        if let item = rssItems?[indexPath.row] {
+            cell.titleLabel.text = item.title
+            cell.descriptionLabel.text = item.description
+            cell.dateLabel.text = item.pubDate
+        }
+        
+        return cell
+    }
 }

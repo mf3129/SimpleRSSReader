@@ -2,8 +2,7 @@
 //  FeedParser.swift
 //  SimpleRSSReader
 //
-//  Created by Makan fofana on 5/14/19.
-//  Copyright © 2019 MakanFofana. All rights reserved.
+//  Makan Fofana
 //
 
 import Foundation
@@ -14,8 +13,8 @@ typealias ArticleItem = (title: String, description: String, pubDate: String)
 
 //Enums for XML tags we want
 enum rssTag: String {
-    case item = "Item"
-    case title = "Title"
+    case item = "item"
+    case title = "title"
     case description = "description"
     case pubDate = "pubDate"
 }
@@ -25,6 +24,7 @@ enum rssTag: String {
 class FeedParser: NSObject, XMLParserDelegate {
     
     private var rssItems: [ArticleItem] = []
+    
     private var currentElement = ""
     private var currentTitle: String = "" {
         didSet {
@@ -52,7 +52,7 @@ class FeedParser: NSObject, XMLParserDelegate {
         
         let request = URLRequest(url: URL(string: feedURL)!)
         let urlSession = URLSession.shared
-        let task = urlSession.dataTask(with: request) { (data, response, error) -> Void in
+        let task = urlSession.dataTask(with: request, completionHandler: { (data, response, error) -> Void in
             
             guard let data = data else {
                 if let error = error {
@@ -66,7 +66,7 @@ class FeedParser: NSObject, XMLParserDelegate {
             parser.delegate = self
             parser.parse()
             
-        }
+        })
         
         task.resume()
     }
