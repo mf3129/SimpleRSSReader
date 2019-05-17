@@ -10,8 +10,12 @@ import UIKit
 class NewsTableViewController: UITableViewController {
     
     private var rssItems: [ArticleItem]?
+    private var cellStates: [cellState]?
     
-    
+    enum cellState {
+        case expanded
+        case collapsed
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +28,7 @@ class NewsTableViewController: UITableViewController {
             (rssItems: [ArticleItem]) -> Void in
             
             self.rssItems = rssItems
+            self.cellStates = [cellState](repeating: .collapsed, count: rssItems.count)
             OperationQueue.main.addOperation({ () -> Void in
                 self.tableView.reloadSections(IndexSet(integer: 0), with: .none)
             })
@@ -60,7 +65,7 @@ class NewsTableViewController: UITableViewController {
         
         tableView.beginUpdates()
         cell.descriptionLabel.numberOfLines = (cell.descriptionLabel.numberOfLines == 0) ? 4 : 0
-        
+        cellStates?[indexPath.row] = (cell.descriptionLabel.numberOfLines == 0) ? .expanded : .collapsed //Determine whether cell has collapsed or expanded
         tableView.endUpdates()
     }
     
@@ -73,6 +78,10 @@ class NewsTableViewController: UITableViewController {
             cell.titleLabel.text = item.title
             cell.descriptionLabel.text = item.description
             cell.dateLabel.text = item.pubDate
+            
+            if let cellStates = cellStates {
+                cell.descriptionLabel.numberOfLines = (cellStates[indexPath.row] == .expanded) ? 0 : 4
+            }
         }
         
         return cell
